@@ -11,6 +11,7 @@ gem 'httparty'
 # Google
 gem 'google-api-client'
 gem 'googleauth'
+gem 'omniauth-oauth2', '~> 1.3.1'
 gem 'omniauth-google-oauth2'
 
 # Data store
