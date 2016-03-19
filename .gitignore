@@ -7,3 +7,4 @@ vendor/gems/*
 db/*.db
 .*.sw*
 config/client_secrets.json
+.env

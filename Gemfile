@@ -1,17 +1,8 @@
 source 'https://rubygems.org'
 
-# Padrino supports Ruby version 1.9 and later
-# ruby '2.1.2'
-
-# Distribute your app as a gem
-# gemspec
-
 # Server
 gem 'foreman', group: :development
 gem 'puma'
-
-# Optional JSON codec (faster performance)
-# gem 'oj'
 
 # Project
 gem 'rake'
@@ -20,6 +11,7 @@ gem 'httparty'
 # Google
 gem 'google-api-client'
 gem 'googleauth'
+gem 'omniauth-google-oauth2'
 
 # Data store
 gem 'redis'
@@ -41,6 +33,7 @@ end
 
 group :test, :development do
   gem 'byebug'
+  gem 'dotenv'
 end
 
 # Padrino Stable Gem

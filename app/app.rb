@@ -4,6 +4,10 @@ module Statext
     register Padrino::Mailer
     register Padrino::Helpers
 
+    use OmniAuth::Builder do
+      provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], { scope: 'email, profile, https://www.googleapis.com/auth/analytics.readonly'}
+    end
+
     enable :sessions
 
     get '/' do
