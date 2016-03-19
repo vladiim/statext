@@ -4,6 +4,7 @@ PADRINO_ROOT = File.expand_path('../..', __FILE__) unless defined?(PADRINO_ROOT)
 
 # Load our dependencies
 require 'bundler/setup'
+require 'byebug' if %w(test development).include?(RACK_ENV)
 Bundler.require(:default, RACK_ENV)
 
 ##

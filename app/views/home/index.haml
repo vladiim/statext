@@ -1,8 +1,8 @@
-%form{action: '/authorize', method: 'post', class: 'form-horizontal'}
-  %fieldset
+= form_tag '/auth/create', method: 'post', class: 'form-horizontal' do
+  = flash_tag(:notice)
+  = field_set_tag do
     .form-group
-      %label{for: 'inputEmail', class: 'control-label'} Google Analytics Email
       .input-group
-        %input{id: 'inputEmail', type: 'email', name: 'email', class: 'form-control', placeholder: 'GA email'}
+        = email_field_tag :email, class: 'form-control', placeholder: 'GA Email'
         %span.input-group-btn
-          %button{type: 'submit', class: 'btn btn-primary'} Sign up
+          = submit_tag "Create", :class => 'btn btn-default'
