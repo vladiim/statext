@@ -5,7 +5,7 @@ require 'googleauth/stores/redis_token_store'
 class GoogleAuth
   CLIENT_SECRETS = 'config/client_secrets.json'
   ANALYTICS_READ = 'https://www.googleapis.com/auth/analytics.readonly'
-  CALLBACK_URL   = '/auth/callback'
+  CALLBACK_URL   = '/auth_google/callback'
 
   def self.get_authorization_url(email, request)
     authorizer.get_authorization_url(login_hint: email, request: request)
@@ -13,6 +13,11 @@ class GoogleAuth
 
   def self.handle_auth_callback_deferred(request)
     web_authorizer.handle_auth_callback_deferred(request)
+  end
+
+  def self.get_credentials(request)
+    email = request.session.fetch('email')
+    authorizer.get_credentials(email, request)
   end
 
   private

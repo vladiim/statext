@@ -1,4 +1,4 @@
-Statext::App.controllers :auth do
+Statext::App.controllers :auth_google do
 
   post :create do
     request.session['user_email'] = user_email = params.fetch('email') {'No email received!'}
@@ -6,6 +6,7 @@ Statext::App.controllers :auth do
   end
 
   get :callback do
+    byebug
     redirect GoogleAuth.handle_auth_callback_deferred(request)
   end
 end

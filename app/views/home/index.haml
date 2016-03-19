@@ -3,7 +3,7 @@
 
   .row
     .col-sm-6
-      = form_tag '/auth/create', method: 'post', class: 'form-horizontal' do
+      = form_tag '/auth_google/create', method: 'post', class: 'form-horizontal' do
         = flash_tag(:notice)
         = field_set_tag do
           .form-group
