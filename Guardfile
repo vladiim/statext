@@ -15,6 +15,7 @@ guard :rspec, cmd: "bundle exec rspec" do
   # Padrino files
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^app/(.+)\.rb$})    { |m| "spec/app/#{m[1]}_spec.rb" }
+  watch(%r{^app/controllers/\.rb$}) { |m| "spec/app/controllers/#{m[1]}_spec.rb" }
   watch(%r{^models/(.+)\.rb$}) { |m| "spec/models/#{m[1]}_spec.rb" }
   watch(%r{^spec/support/(.+)\.rb$}) { "spec" }
   watch('spec/spec_helper.rb')       { "spec" }
