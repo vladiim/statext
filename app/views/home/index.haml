@@ -1,0 +1,8 @@
+%form{action: '/authorize', method: 'post', class: 'form-horizontal'}
+  %fieldset
+    .form-group
+      %label{for: 'inputEmail', class: 'control-label'} Google Analytics Email
+      .input-group
+        %input{id: 'inputEmail', type: 'email', name: 'email', class: 'form-control', placeholder: 'GA email'}
+        %span.input-group-btn
+          %button{type: 'submit', class: 'btn btn-primary'} Sign up
