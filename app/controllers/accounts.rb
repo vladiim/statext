@@ -1,8 +1,7 @@
 Statext::App.controllers :accounts do
 
   get :index do
-    content_type :text
-    current_account.to_yaml
+    haml :'accounts/index'
   end
 
   get :destroy do

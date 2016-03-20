@@ -1,0 +1,46 @@
+%header
+  %h1 Accounts
+
+%section
+  .row
+    .col-md-4
+      .panel.panel-primary
+        .panel-heading
+          %h3.panel-title To do, x% done
+        .panel-body
+          %ul.list-group
+            %li.list-group-item
+              .list-group-heading
+                %h4
+                  %strike 1. Authenticate with Google
+                  %small ~1 min
+              .list-group-text This lets us access you Google Analytics accounts.
+            %li.list-group-item
+              %span.badge 1
+              .list-group-heading
+                %h4
+                  2. Set up your Google Analytics profiles
+                  %small ~2 mins
+              .list-group-text So you can let us know which account you want reports for.
+            %li.list-group-item
+              .list-group-heading
+                %h4
+                  3. Authenticate with Slack
+                  %small ~1 min
+              .list-group-text This lets us access you Google Analytics accounts.
+            %li.list-group-item
+              .list-group-heading
+                %h4
+                  4. Make your first query
+                  %small ~1 min
+              .list-group-text Go to Slack and type "@statext:5 days users".
+    .col-md-8
+      %section#google-analytics-profile-manager
+        .row
+          .col-md-2
+            %h4 Default
+          .col-md-10.form
+            %form.form-horizontal
+              %fieldset
+                .form-group
+                  %select.form-control

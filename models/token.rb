@@ -5,11 +5,27 @@
 # # https://www.twilio.com/blog/2014/09/gmail-api-oauth-rails.html
 # class Token
 #
+
+# token = '1/1mqqAH49vaDi41go3JADerr3rLUMhZ3n9HQRWkZGyiUMEudVrK5jSpoR30zcRFq6'
+# options = {
+#   body: {
+#     client_id: ENV['GOOGLE_CLIENT_ID'],
+#     client_secret: ENV['GOOGLE_CLIENT_SECRET'],
+#     refresh_token: token,
+#     grant_type: 'refresh_token'
+#   },
+#   headers: {
+#    'Content-Type' => 'application/x-www-form-urlencoded'
+#   }
+# }
+# refresh = HTTParty.post('https://accounts.google.com/o/oauth2/token', options)
+
+
 #   def to_params
-#     {'refresh_token' => refresh_token,
-#     'client_id' => ENV['GOOGLE_CLIENT_ID'],
-#     'client_secret' => ENV['GOOGLE_CLIENT_SECRET'],
-#     'grant_type' => 'refresh_token'}
+    # {'refresh_token' => refresh_token,
+    # 'client_id' => ENV['GOOGLE_CLIENT_ID'],
+    # 'client_secret' => ENV['GOOGLE_CLIENT_SECRET'],
+    # 'grant_type' => 'refresh_token'}
 #   end
 #
 #   def request_token_from_google
