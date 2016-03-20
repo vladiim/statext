@@ -18,25 +18,16 @@ module Statext
     ##
     # Authentication
     #
+    set :login_page, '/auth/google_oauth2'
+
     access_control.roles_for :any do |role|
-      role.protect '/account'
-      # role.protect "/admin" # here is a demo path
+      role.protect '/accounts'
     end
 
-    get :account do
-      content_type :text
-      current_account.to_yaml
+    # now we add a role for users
+    access_control.roles_for :user do |role|
+      role.allow "/accounts"
     end
-
-    get 'account/destroy' do
-      set_current_account(nil)
-      redirect url(:index)
-    end
-    #
-    # # now we add a role for users
-    # access_control.roles_for :users do |role|
-    #   role.allow "/profile"
-    # end
 
     ##
     # Caching support.

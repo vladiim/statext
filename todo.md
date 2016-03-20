@@ -1,10 +1,10 @@
 # Up to
 
-setup login sessions for user now that i get google omni auth data back, prob use devise to manage this, look up padrino login, need to have multiple oauth: multiple google, slack etc
+* See your GA accounts
 
-http://armoredcode.com/blog/crafting-an-authentication-subsystem-that-rocks-for-your-padrino-application-with-omniauth/
+* Set a default and other accounts
 
-https://www.twilio.com/blog/2014/09/gmail-api-oauth-rails.html
+* Refresh user token for google automatically
 
 ***
 
