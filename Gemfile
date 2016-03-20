@@ -22,6 +22,7 @@ gem 'sass'
 gem 'haml'
 gem 'pg'
 gem 'sequel'
+# gem 'activerecord'
 
 # Test
 group :test do

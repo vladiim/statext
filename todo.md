@@ -1,3 +1,13 @@
+# Up to
+
+setup login sessions for user now that i get google omni auth data back, prob use devise to manage this, look up padrino login, need to have multiple oauth: multiple google, slack etc
+
+http://armoredcode.com/blog/crafting-an-authentication-subsystem-that-rocks-for-your-padrino-application-with-omniauth/
+
+https://www.twilio.com/blog/2014/09/gmail-api-oauth-rails.html
+
+***
+
 # Slack > GA flow
 
 * Enter your email at the homepage
