@@ -3,6 +3,7 @@ module Statext
     register SassInitializer
     register Padrino::Mailer
     register Padrino::Helpers
+    register Padrino::Admin::AccessControl
 
     use OmniAuth::Builder do
       provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], { scope: 'email, profile, https://www.googleapis.com/auth/analytics.readonly', access_type: 'offline'}
@@ -16,9 +17,6 @@ module Statext
 
     ##
     # Authentication
-    #
-    register Padrino::Admin::AccessControl
-    set :login_page, '/login' # determines the url login occurs
     #
     access_control.roles_for :any do |role|
       role.protect '/account'
