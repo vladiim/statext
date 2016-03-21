@@ -1,46 +1,49 @@
 %header
-  %h1 Accounts
+  %h1 Dashboard
 
-%section
+%section#dashboard
   .row
-    .col-md-4
-      .panel.panel-primary
-        .panel-heading
-          %h3.panel-title To do, x% done
-        .panel-body
-          %ul.list-group
-            %li.list-group-item
-              .list-group-heading
-                %h4
-                  %strike 1. Authenticate with Google
-                  %small ~1 min
-              .list-group-text This lets us access you Google Analytics accounts.
-            %li.list-group-item
-              %span.badge 1
-              .list-group-heading
-                %h4
-                  2. Set up your Google Analytics profiles
-                  %small ~2 mins
-              .list-group-text So you can let us know which account you want reports for.
-            %li.list-group-item
-              .list-group-heading
-                %h4
-                  3. Authenticate with Slack
-                  %small ~1 min
-              .list-group-text This lets us access you Google Analytics accounts.
-            %li.list-group-item
-              .list-group-heading
-                %h4
-                  4. Make your first query
-                  %small ~1 min
-              .list-group-text Go to Slack and type "@statext:5 days users".
-    .col-md-8
-      %section#google-analytics-profile-manager
-        .row
-          .col-md-2
-            %h4 Default
-          .col-md-10.form
-            %form.form-horizontal
-              %fieldset
-                .form-group
-                  %select.form-control
+    .col-sm-2
+      %ul.nav.nav-pills.nav-stacked{role: 'tablist'}
+        %li{role: 'presentation', class: 'active'}
+          %a{href: '#integrations', 'aria-controls' => 'integrations', role: 'pill', 'data-toggle' => 'pill'}
+            Integrations
+            %span.badge.pull-right 1
+        %li{role: 'presentation'}
+          %a{href: '#reports', 'aria-controls' => 'reports', role: 'pill', 'data-toggle' => 'pill'}
+            Reports
+            %span.badge.pull-right 4
+        %li{role: 'presentation'}
+          %a{href: '#tutorials', 'aria-controls' => 'reports', role: 'pill', 'data-toggle' => 'pill'}
+            Tutorials
+            %span.badge.pull-right 0
+
+    .col-sm-10
+      .tab-content
+
+        %section{role: 'tabpanel', class: 'tab-pane active', id: 'integrations'}
+          %h3 Integrations
+          .col-xs-4
+            .panel.panel-primary
+              .panel-heading
+                %h4.panel-title Google
+              .panel-body
+                %ul
+                  %li= "Email: #{current_account.email}"
+
+          .col-xs-4
+            .panel.panel-primary
+              .panel-heading
+                %h4.panel-title Slack
+              .panel-body
+                %a{href: '#', class: 'btn btn-default'} Add Slack integration
+
+        %section{role: 'tabpanel', class: 'tab-pane', id: 'reports'}
+          %h3 Reports
+          %section#loading-reports
+            %b Loading your reports...
+            .progress.progress-striped.active
+              .progress-bar{style: 'width: 80%'}
+
+        %section{role: 'tabpanel', class: 'tab-pane', id: 'tutorials'}
+          %h1 Tutorials!

@@ -5795,5 +5795,8 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+.tab-pane ul {
+  list-style: none;
+  padding-left: 0; }
 
 /*# sourceMappingURL=app.css.map */

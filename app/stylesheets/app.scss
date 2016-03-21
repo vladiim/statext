@@ -1,1 +1,8 @@
 @import "vendors/bootstrap/bootstrap.scss";
+
+.tab-pane {
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+}

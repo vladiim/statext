@@ -27,9 +27,9 @@ RSpec.describe Account do
       let(:google_auth_data) {{credentials: {expires_at: Time.now.to_i - 10}}.to_json}
 
       it "refreshes the user's token" do
-        expect(subject).to receive(:google_auth_data).and_return(google_auth_data)
+        expect(subject).to receive(:google_auth_data).twice.and_return(google_auth_data)
         expect(subject).to receive(:refresh_token!).and_return('REFRESH TOKEN!')
-        expect(subject.google_data).to eq('REFRESH TOKEN!')
+        subject.google_data
       end
     end
 
@@ -62,6 +62,14 @@ RSpec.describe Account do
 
     it 'updates the google_auth_data credentials' do
       expect(subject.update_token!(new_token)).to eq('UPDATED SUBJECT')
+    end
+  end
+
+  describe '#all_reports' do
+    # let(:ga_reports) {'GA REPORTS'}
+    it 'generates the GA reports' do
+      expect_any_instance_of(Report).to receive(:generate).and_return('GA REPORT')
+      subject.all_reports
     end
   end
 end

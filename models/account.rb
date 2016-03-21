@@ -10,7 +10,7 @@ class Account < Sequel::Model
   end
 
   def google_data
-    return refresh_token! if token_expired?
+    refresh_token! if token_expired?
     google_auth_data
   end
 
@@ -20,6 +20,10 @@ class Account < Sequel::Model
 
   def update_token!(token)
     update(google_auth_data: updated_google_auth_data(token).to_json)
+  end
+
+  def all_reports
+    Report.new(self).generate
   end
 
   private
