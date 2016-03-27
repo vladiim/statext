@@ -1,3 +1,11 @@
+# Tech / approach
+
+* https://www.asknestor.me/
+
+* Consider lambda, api gateway + node
+
+***
+
 # Up to
 
 * See your GA accounts
@@ -31,3 +39,7 @@
     - @statext:7 days<weeks, months, years> user<other commands> #> list of days<3rd Mar 2016>: users<23>
 
 ***
+
+# Future
+
+* Insight reminders: push notification once a week to re-engage e.g. "Users from mobile are up 20% since last year, want to know more?"

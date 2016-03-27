@@ -1,33 +1,46 @@
+require 'google/apis/analytics_v3'
+
 class Report
-  attr_reader :account
+  attr_reader :account, :service
   def initialize(account)
     @account = account
+    init_authorised_service
+  end
+
+  def generate
+    reports = account.reports
+    generate_new_reports if reports.nil?
+    reports
+  end
+
+  private
+
+  def init_authorised_service
+    @service = Google::Apis::AnalyticsV3::AnalyticsService.new
+    service.authorization = account.authorised_token
+  end
+
+  def generate_new_reports
+    account.update_reports!(new_reports)
+  end
+
+  def new_reports
+    service.list_account_summaries.items.map do |site|
+      site.web_properties.map do |property|
+        property.profiles.map do |profile|
+          report_item(profile, site, property)
+        end
+      end
+    end.flatten
+  end
+
+  def report_item(profile, site, property)
+    {
+      nick_name: profile.name.downcase.gsub(' ', '_'),
+      name: profile.name,
+      id: profile.id,
+      site: site.name,
+      property: property.name
+    }
   end
 end
-
-# get ':provider/callback' do
-#   omniauth = request.env["omniauth.auth"]
-#   creds    = omniauth[:credentials]
-#   USER_ID = 'ga:66466136'
-#   service = Google::Apis::AnalyticsV3::AnalyticsService.new
-#   service.authorization = creds['token']
-#   content_type(:json)
-#   # service.get_ga_data('ga:64727307', '2015-01-01', '2016-02-01', 'ga:users', dimensions: 'ga:month,ga:year').rows.to_json
-#   service.list_account_summaries.items.map do |site|
-#     {
-#       name: site.name, id: site.id,
-#       web_properties: site.web_properties.map do |property|
-#         {
-#           name: property.name, id: property.id,
-#           profiles: property.profiles.map do |profile|
-#             {
-#               name: profile.name, id: profile.id
-#             }
-#           end
-#         }
-#       end
-#     }
-#   end.to_json
-#   # @user = User.find_uid(omniauth["uid"])
-#   # @user = User.new_from_omniauth(omniauth) if @user.nil?
-# end

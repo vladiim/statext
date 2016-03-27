@@ -43,13 +43,6 @@ RSpec.describe Account do
     end
   end
 
-  describe '#refresh_token!' do
-    it 'updates the account token' do
-      expect_any_instance_of(TokenRefresher).to receive(:refresh!).and_return('REFRESHED TOKEN!')
-      expect(subject.refresh_token!).to eq('REFRESHED TOKEN!')
-    end
-  end
-
   describe '#update_token!(new_token)' do
     let(:new_token) {{"access_token"=>"ACCESS_TOKEN", "token_type"=>"Bearer", "expires_in"=>3600, "id_token"=>"ID_TOKEN"}}
     let(:google_auth_data) {{'credentials' => {'token' => 'OLD', 'expires_at' => 1234, 'access_token' => 'OLD ACCESS'}}.to_json}
@@ -66,10 +59,32 @@ RSpec.describe Account do
   end
 
   describe '#all_reports' do
-    # let(:ga_reports) {'GA REPORTS'}
+    let(:mock_report) {OpenStruct.new(generate: 'GA REPORTS')}
+    before {expect(Report).to receive(:new).and_return(mock_report)}
+
     it 'generates the GA reports' do
-      expect_any_instance_of(Report).to receive(:generate).and_return('GA REPORT')
-      subject.all_reports
+      expect(subject.all_reports).to eq('GA REPORTS')
+    end
+  end
+
+  describe '#authorised_token' do
+    before {allow(subject).to receive(:google_auth_data).and_return(google_auth_data)}
+
+    context 'current token is fresh' do
+      let(:google_auth_data) {{"credentials" => {'token' => 'CURRENT TOKEN', "expires_at" => Time.new.to_i + 3600}}.to_json}
+
+      it 'returns the current token' do
+        expect(subject.authorised_token).to eq('CURRENT TOKEN')
+      end
+    end
+
+    context 'current token is not fresh' do
+      let(:google_auth_data) {{"credentials" => {'token' => 'CURRENT TOKEN', "expires_at" => Time.new.to_i - 1}}.to_json}
+      before {expect(subject).to receive(:refresh_token!)}
+
+      it 'updates the token' do
+        expect(subject.authorised_token).to eq('CURRENT TOKEN')
+      end
     end
   end
 end

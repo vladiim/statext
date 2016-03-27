@@ -13,17 +13,16 @@
       return $(IDENTIFYER).length > 0;
     },
     render: function() {
-      R.map(this.renderReport, this.reportData());
+      $.get('/reports', function(data) {
+        R.map(RenderReports.renderReport, data);
+      });
       this.deleteLoader();
     },
-    reportData: function() {
-      return [{
-        name: 'PROFILE NAME',
-        id: 'PROFILE ID',
-        web_property: 'WEB PROPERTY',
-        account: 'ACCOUNT NAME'
-      }]
-    },
+    // reportData: function() {
+    //   $.get('/reports', function(data) {
+    //     return data;
+    //   });
+    // },
     deleteLoader: function() {
       $(LOADING_REPORTS).remove();
     },
@@ -38,9 +37,9 @@
           '</div></div>' +
           '<div class="panel-body">' +
           '<ul>' +
-          '<li><b>Nick name:</b> ' + report.name + '</li>' +
-          '<li><b>Web property:</b> ' + report.web_property + '</li>' +
-          '<li><b>Account:</b> ' + report.account + '</li>' +
+          '<li><b>Nick name:</b> ' + report.nick_name + '</li>' +
+          '<li><b>Web property:</b> ' + report.property + '</li>' +
+          '<li><b>Site:</b> ' + report.site + '</li>' +
           '</ul>' +
           '<a class="btn btn-default">Edit</a>' +
           '</div></div></div>'

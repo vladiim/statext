@@ -1,4 +1,10 @@
 class Account < Sequel::Model
+  USER_ROLE    = 'user'
+  CREDENTIALS  = 'credentials'
+  TOKEN        = 'token'
+  EXPIRES_AT   = 'expires_at'
+  EXPIRES_IN   = 'expires_in'
+  ACCESS_TOKEN = 'access_token'
 
   def self.find_by_id(id)
     find(id: id)
@@ -14,12 +20,17 @@ class Account < Sequel::Model
     google_auth_data
   end
 
-  def refresh_token!
-    TokenRefresher.new(self).refresh!
+  def authorised_token
+    refresh_token! if token_expired?
+    token
   end
 
   def update_token!(token)
     update(google_auth_data: updated_google_auth_data(token).to_json)
+  end
+
+  def update_reports!(reports)
+    update(reports: reports.to_json)
   end
 
   def all_reports
@@ -30,16 +41,9 @@ class Account < Sequel::Model
 
   def updated_google_auth_data(token)
     JSON.parse(google_auth_data).tap do |data|
-      data['credentials']['access_token'] = token.fetch('access_token')
-      data['credentials']['expires_at']   = Time.new.to_i + token.fetch('expires_in')
+      data[CREDENTIALS][ACCESS_TOKEN] = token.fetch(ACCESS_TOKEN)
+      data[CREDENTIALS][EXPIRES_AT]   = Time.new.to_i + token.fetch(EXPIRES_IN)
     end
-  end
-
-  def token_expired?
-    JSON.parse(google_auth_data)
-      .fetch('credentials')
-      .fetch('expires_at')
-      .to_i < Time.new.to_i
   end
 
   def self.create_with_omniauth(auth)
@@ -47,8 +51,29 @@ class Account < Sequel::Model
       first_name: auth.fetch(:info).fetch(:first_name),
       last_name:  auth.fetch(:info).fetch(:last_name),
       email:      auth.fetch(:info).fetch(:email),
-      role:       'user',
+      role:       USER_ROLE,
       google_auth_data: auth.to_json
     )
+  end
+
+  def refresh_token!
+    TokenRefresher.new(self).refresh!
+  end
+
+  def credentials
+    JSON.parse(google_auth_data)
+      .fetch(CREDENTIALS)
+  end
+
+  def token
+    credentials.fetch(TOKEN)
+  end
+
+  def expires_at
+    credentials.fetch(EXPIRES_AT)
+  end
+
+  def token_expired?
+    expires_at.to_i < Time.new.to_i
   end
 end

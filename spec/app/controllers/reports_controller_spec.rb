@@ -9,7 +9,7 @@ RSpec.describe "/reports" do
     end
 
     it "returns the current user's reports" do
-      expect(last_response.body).to eq("\"ALL REPORTS\"")
+      expect(last_response.body).to eq("ALL REPORTS")
     end
   end
 end
